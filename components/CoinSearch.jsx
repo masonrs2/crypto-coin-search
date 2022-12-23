@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
-import { Sparklines, SparklinesLine } from 'react-sparklines';
+import { Sparklines, SparklinesLine } from 'react-sparklines'; 
+import router from 'next/router'
+import Link from 'next/link'
 
 import Image from 'next/image'
 
@@ -88,6 +90,7 @@ const CoinSearch = () => {
                                 
                                     <div className='flex items-center'>
                                         <div>
+                                        <Link href="/Pages/CoinInfo">
 
                                             <img
                                             onClick={() => setSavedCoin(!savedCoin)}
@@ -95,6 +98,7 @@ const CoinSearch = () => {
                                             src={coin.image}
                                             alt={coin.id}
                                             />
+                                            </Link>
                                         </div>
                                         <p className='hidden sm:table-cell'>{coin.name} <span className="text-gray-500 px-1 uppercase">{coin.symbol}</span></p>
                                     </div>
@@ -130,6 +134,7 @@ const CoinSearch = () => {
                                     }
                                     
                                    </Sparklines>
+                                
                                 </td>
                                 </tr>
                                 ))
