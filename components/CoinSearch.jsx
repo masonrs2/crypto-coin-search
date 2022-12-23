@@ -79,9 +79,9 @@ const CoinSearch = () => {
                                 }
                             
                             }).map((coin, id) => (
-                                <tr className='h-[80px] border-b overflow-hidden '>
+                                <tr className='h-[80px] border-b overflow-hidden hover:scale-95 duration-300 cursor-pointer '>
                                 <td onClick={saveCoin}>
-                                    {savedCoin ? <AiFillStar /> : <AiOutlineStar />}
+                                    {savedCoin ? <AiFillStar size={18} /> : <AiOutlineStar size={18} />}
                                 </td>
                                 <td>{coin.market_cap_rank}</td>
                                 <td>
@@ -121,7 +121,14 @@ const CoinSearch = () => {
                                 </td>
                                 <td>
                                    <Sparklines data={coin.sparkline_in_7d.price}>
+                                    {
+                                    coin.sparkline_in_7d.price[0] > coin.sparkline_in_7d.price[coin.sparkline_in_7d.price.length-1]
+                                    ? 
+                                    <SparklinesLine color='red' /> 
+                                    : 
                                     <SparklinesLine color='teal' />
+                                    }
+                                    
                                    </Sparklines>
                                 </td>
                                 </tr>
