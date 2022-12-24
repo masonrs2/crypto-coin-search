@@ -8,10 +8,13 @@ const CoinInfo = () => {
   const router = useRouter()
 
   const {
-    query: {coin, id},
+    query: { name, coin },
   } = router
 
-  const props = { coin, id };
+  const props = {
+     name, 
+     coin,
+    };
 
   return (
     
@@ -29,8 +32,10 @@ const CoinInfo = () => {
                                     }
                                     
                                    </Sparklines> */}
+            <h1>{props.name}</h1>
             <h1>{props.coin.name}</h1>
-            <p>{props.coin.total_volume}</p>
+           
+            
         </div>
 
         <Footer />

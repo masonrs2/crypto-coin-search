@@ -6,6 +6,7 @@ import Trending from '../components/Trending'
 import AboutUs from '../components/AboutUs'
 import Footer from '../components/Footer'
 import { AuthContextProvider } from '../context/AuthContext'
+import Signup from './Pages/Signup'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +20,6 @@ export default function Home() {
             <AboutUs />
             <Footer />
         </AuthContextProvider>
-       
     </div>
   )
 }

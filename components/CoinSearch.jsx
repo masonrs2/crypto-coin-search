@@ -9,16 +9,18 @@ import Image from 'next/image'
 
 const CoinSearch = () => {
     const [coins, setCoins] = useState([])
-    const [coin, setCoin] = useState(null)
+    const [coin, setCoin] = useState({})
+    const [name, setName] = useState("Mason..")
     const [search, setSearch] = useState("")
     const [savedCoin, setSavedCoin] = useState(false)
 
     function sendProps() {
+        console.log('coin: ', coin)
         Router.push({
             pathname: "/Pages/CoinInfo",
             query: {
-                coin,
-                setCoin,
+                name,
+                coin
             }
         })
     }
@@ -85,12 +87,10 @@ const CoinSearch = () => {
                     <tbody className="">
                         {
                             coins.filter((coin) => {
-                                
                                 if(search === ""){
                                     return coin
                                 }
                                 else {
-                                    setCoin(coin)
                                     return coin.name.toLowerCase().includes(search.toLowerCase())
                                 }
                             
@@ -102,7 +102,10 @@ const CoinSearch = () => {
                                 <td>{coin.market_cap_rank}</td>
                                 <td>
                                 
-                                    <div onClick={() => sendProps()} className='flex items-center'>
+                                    <div onClick={() => {
+                                        setCoin(coin)
+                                        sendProps()
+                                        }} className='flex items-center'>
                                         <div>
                                             <img
                                             onClick={() => setSavedCoin(!savedCoin)}
@@ -153,8 +156,6 @@ const CoinSearch = () => {
                             }
                     </tbody>
                 </table>
-
-                
             </div>
         </div>
     </div>
