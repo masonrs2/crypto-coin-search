@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
 import { Sparklines, SparklinesLine } from 'react-sparklines'; 
-import router from 'next/router'
+import Router from 'next/router'
 import Link from 'next/link'
+import Signup from '../pages/Pages/Signup'
 
 import Image from 'next/image'
 
 const CoinSearch = () => {
     const [coins, setCoins] = useState([])
+    const [coin, setCoin] = useState(null)
     const [search, setSearch] = useState("")
     const [savedCoin, setSavedCoin] = useState(false)
+
+    function sendProps() {
+        Router.push({
+            pathname: "/Pages/CoinInfo",
+            query: {
+                coin,
+                setCoin,
+            }
+        })
+    }
 
 
     const saveCoin = async () => {
@@ -73,10 +85,12 @@ const CoinSearch = () => {
                     <tbody className="">
                         {
                             coins.filter((coin) => {
+                                
                                 if(search === ""){
                                     return coin
                                 }
                                 else {
+                                    setCoin(coin)
                                     return coin.name.toLowerCase().includes(search.toLowerCase())
                                 }
                             
@@ -88,17 +102,15 @@ const CoinSearch = () => {
                                 <td>{coin.market_cap_rank}</td>
                                 <td>
                                 
-                                    <div className='flex items-center'>
+                                    <div onClick={() => sendProps()} className='flex items-center'>
                                         <div>
-                                        <Link href="/Pages/CoinInfo">
-
                                             <img
                                             onClick={() => setSavedCoin(!savedCoin)}
                                             className='w-6 mr-2 rounded-full'
                                             src={coin.image}
                                             alt={coin.id}
                                             />
-                                            </Link>
+                                            
                                         </div>
                                         <p className='hidden sm:table-cell'>{coin.name} <span className="text-gray-500 px-1 uppercase">{coin.symbol}</span></p>
                                     </div>
@@ -141,6 +153,8 @@ const CoinSearch = () => {
                             }
                     </tbody>
                 </table>
+
+                
             </div>
         </div>
     </div>

@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { HiBars3 } from 'react-icons/hi'
 import logo from "../assets/coin.png"
 import Image from 'next/image'
+import Link from 'next/link'
+import Router from 'next/router'
 
 const Navbar = () => {
-    const [nav, setNav] = React.useState(false)
+    const [nav, setNav] = useState(false)
+    const [toggle, setToggle] = useState(false)
+    const [name, setName]= useState('name')
+
+    function sendProps() {
+      Router.push({
+        pathname: "/Pages/Signup",
+        query: { 
+          name,
+          setName,
+          toggle,
+          setToggle
+        },
+      })
+    }
+    
 
   return (
     <div className="w-full py-4   ">
@@ -13,7 +30,9 @@ const Navbar = () => {
             <Image src={logo} width={130} height={30} />
             <div className="flex flex-row gap-3 px-2">
                 <button className="font-medium">Log in</button>
-                <button className="bg-lime-400 shadow-xl px-4 rounded-md py-2 text-white font-bold">Sign Up</button>
+        
+                  <button onClick={() => sendProps()} className="bg-lime-400 shadow-xl px-4 rounded-md py-2 text-white font-bold">Sign Up</button>
+      
             </div>
         </div>
     </div>
