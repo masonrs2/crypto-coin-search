@@ -44,9 +44,7 @@ const Signup = () => {
 
   return (
         <div className="w-full h-full text-black bg-stone-200 px-6" >
-
             <Navbar />
-
             <div className="flex flex-col text-black justify-center items-center h-screen rounded-md shadow-lg bg-white">
                 <div className="flex flex-col sm:border border-gray-300 rounded-md items-center">
                     <FaUserCircle size={33} className="mt-10" />
@@ -92,10 +90,7 @@ const Signup = () => {
                     Already have an account? <span className="font-normal text-blue-500 cursor-pointer">Log in</span>
                 </p>
             </div>
-            
-
-                <Footer />
-            
+            <Footer />
         </div>
 
   )

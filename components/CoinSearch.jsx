@@ -10,7 +10,8 @@ import Image from 'next/image'
 const CoinSearch = () => {
     const [coins, setCoins] = useState([])
     const [coin, setCoin] = useState({})
-    const [name, setName] = useState("Mason..")
+    const [toggle, setToggle] = useState(false)
+    // const [name, setName] = useState("Mason..")
     const [search, setSearch] = useState("")
     const [savedCoin, setSavedCoin] = useState(false)
 
@@ -50,6 +51,8 @@ const CoinSearch = () => {
         const coins = await data.json()
         setCoins(coins)
     }
+
+    
 
     useEffect(() => {
         fetchCoins()
@@ -95,28 +98,27 @@ const CoinSearch = () => {
                                 }
                             
                             }).map((coin, id) => (
-                                <tr className='h-[80px] border-b overflow-hidden hover:scale-95 duration-300 cursor-pointer '>
+                                <tr key={coin.id} className='h-[80px] border-b overflow-hidden hover:scale-95 duration-300 cursor-pointer '>
                                 <td onClick={saveCoin}>
                                     {savedCoin ? <AiFillStar size={18} /> : <AiOutlineStar size={18} />}
                                 </td>
                                 <td>{coin.market_cap_rank}</td>
                                 <td>
                                 
-                                    <div onClick={() => {
-                                        setCoin(coin)
-                                        sendProps()
-                                        }} className='flex items-center'>
-                                        <div>
-                                            <img
-                                            onClick={() => setSavedCoin(!savedCoin)}
-                                            className='w-6 mr-2 rounded-full'
-                                            src={coin.image}
-                                            alt={coin.id}
-                                            />
-                                            
+                                    <Link href={`/Pages/CoinInfo?id=${coin.id}&name=${coin.name}`} passHref>
+                                        <div className='flex items-center'>
+                                            <div>
+                                                <img
+                                                onClick={() => setSavedCoin(!savedCoin)}
+                                                className='w-6 mr-2 rounded-full'
+                                                src={coin.image}
+                                                alt={coin.id}
+                                                />
+                                                
+                                            </div>
+                                            <p className='hidden sm:table-cell'>{coin.name} <span className="text-gray-500 px-1 uppercase">{coin.symbol}</span></p>
                                         </div>
-                                        <p className='hidden sm:table-cell'>{coin.name} <span className="text-gray-500 px-1 uppercase">{coin.symbol}</span></p>
-                                    </div>
+                                    </Link>
                             
                                 </td>
                                 <td></td>
@@ -157,9 +159,21 @@ const CoinSearch = () => {
                     </tbody>
                 </table>
             </div>
+            
         </div>
     </div>
   )
+}
+
+export async function getStaticProps() { 
+    const data = await fetch(coinGeckoUrl)
+    const coins = await data.json()
+    
+    return {
+        props: {
+            posts: coins,
+        }
+    }
 }
 
 export default CoinSearch

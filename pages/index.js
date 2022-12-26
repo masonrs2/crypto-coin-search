@@ -5,12 +5,13 @@ import CoinSearch from '../components/CoinSearch'
 import Trending from '../components/Trending'
 import AboutUs from '../components/AboutUs'
 import Footer from '../components/Footer'
-import { AuthContextProvider } from '../context/AuthContext'
+import { AuthContextProvider, UserAuth } from '../context/AuthContext'
 import Signup from './Pages/Signup'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
   return (
     <div className="w-full h-full text-black bg-stone-200 px-6">
         <AuthContextProvider >
