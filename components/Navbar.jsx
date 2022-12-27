@@ -27,6 +27,18 @@ const Navbar = () => {
         },
       })
     }
+
+    function sendLogin() {
+      Router.push({
+        pathname: "/Pages/Login",
+        query: { 
+          name,
+          setName,
+          toggle,
+          setToggle
+        },
+      })
+    }
     
 
   return (
@@ -37,7 +49,7 @@ const Navbar = () => {
           </Link>
             <Image src={logo} width={130} height={30} />
             <div className="flex flex-row gap-3 px-2">
-                <button className="font-medium">Log in</button>
+                <button onClick={() => sendLogin()} className="font-medium">Log in</button>
         
                   <button onClick={() => sendProps()} className="bg-lime-400 shadow-xl px-4 rounded-md py-2 text-white font-bold">Sign Up</button>
             </div>

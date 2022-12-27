@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
 import { Sparklines, SparklinesLine } from 'react-sparklines'; 
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 import Link from 'next/link'
 import Signup from '../pages/Pages/Signup'
 
@@ -14,6 +14,7 @@ const CoinSearch = () => {
     // const [name, setName] = useState("Mason..")
     const [search, setSearch] = useState("")
     const [savedCoin, setSavedCoin] = useState(false)
+    const router = useRouter()
 
     function sendProps() {
         console.log('coin: ', coin)
@@ -51,8 +52,6 @@ const CoinSearch = () => {
         const coins = await data.json()
         setCoins(coins)
     }
-
-    
 
     useEffect(() => {
         fetchCoins()
@@ -105,20 +104,30 @@ const CoinSearch = () => {
                                 <td>{coin.market_cap_rank}</td>
                                 <td>
                                 
-                                    <Link href={`/Pages/CoinInfo?id=${coin.id}&name=${coin.name}`} passHref>
-                                        <div className='flex items-center'>
-                                            <div>
+                                        
+                                        <div 
+                                        onClick={() => {
+                                            const queryString = Object.entries(coin)
+                                            .map(([key, value]) => `${key}=${value}`)
+                                            .join('&');
+
+                                            const url = `/Pages/coins/${coin.id}?${queryString}`;
+
+                                            router.push(url);
+                                        }}
+                                         className='flex items-center'>
+                                            <div>         
                                                 <img
                                                 onClick={() => setSavedCoin(!savedCoin)}
                                                 className='w-6 mr-2 rounded-full'
                                                 src={coin.image}
                                                 alt={coin.id}
                                                 />
-                                                
+            
                                             </div>
                                             <p className='hidden sm:table-cell'>{coin.name} <span className="text-gray-500 px-1 uppercase">{coin.symbol}</span></p>
                                         </div>
-                                    </Link>
+                                
                             
                                 </td>
                                 <td></td>
@@ -165,15 +174,6 @@ const CoinSearch = () => {
   )
 }
 
-export async function getStaticProps() { 
-    const data = await fetch(coinGeckoUrl)
-    const coins = await data.json()
-    
-    return {
-        props: {
-            posts: coins,
-        }
-    }
-}
 
 export default CoinSearch
+
